@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Student Details</title>
+{% endblock title %}
+
+{% block content %}
+<div class="success-page">
+    <div class="table-card">
+        <h1>Student Details</h1>
+        <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Phone:</strong> {{ student.phone }}</p>
+        <p><strong>Address:</strong> {{ student.address }}</p>
+        <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
+        <p><strong>Gender:</strong> {{ student.gender }}</p>
+        <p><strong>Country:</strong> {{ student.country }}</p>
+        <p><strong>Course:</strong> {{ student.course }}</p>
+        <p><strong>Image:</strong> {{ student.image_name }}</p>
+        <a class="hero-btn" href="{{ url_for('success') }}">Back to List</a>
+    </div>
+</div>
+{% endblock content %}

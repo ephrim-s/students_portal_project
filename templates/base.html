@@ -1,21 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles')}}">
-        <script src="" async defer></script>
-        <title>{% block title %}{% endblock %}</title>
-    </head>
-    <body>
-        <nav>
-            <h2 style="color: red;">This a the nav bar</h2>
-        </nav>
-        {% block content%}{% endblock %}
-        <footer>
-             <h2 style="color: red;">This a the footer</h2>
-        </footer>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename="css/styles.css")}}">
+    <script defer src="{{ url_for('static', filename='js/scripts.js')}}" async defer></script>
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <div class="nav-left">
+        <a class="brand" href="#">StartoCode</a>
+        <a class="nav-link" href="#">Home</a>
+      </div>
+      <div class="nav-right">
+        <a class="nav-link" href="#">Get Started</a>
+      </div>
+    </nav>
+    <main>
+      {% block content%}{% endblock %}
+    </main>
+    <footer>
+      <p>All right reserve &copy StartoCode 2023</p>
+    </footer>
+  </body>
 </html>
