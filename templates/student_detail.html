@@ -5,19 +5,70 @@
 {% endblock title %}
 
 {% block content %}
-<div class="success-page">
-    <div class="table-card">
-        <h1>Student Details</h1>
-        <p><strong>Name:</strong> {{ student.first_name }} {{ student.last_name }}</p>
-        <p><strong>Email:</strong> {{ student.email }}</p>
-        <p><strong>Phone:</strong> {{ student.phone }}</p>
-        <p><strong>Address:</strong> {{ student.address }}</p>
-        <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
-        <p><strong>Gender:</strong> {{ student.gender }}</p>
-        <p><strong>Country:</strong> {{ student.country }}</p>
-        <p><strong>Course:</strong> {{ student.course }}</p>
-        <p><strong>Image:</strong> {{ student.image_name }}</p>
-        <a class="hero-btn" href="{{ url_for('success') }}">Back to List</a>
+<div class="detail-page">
+    <div class="detail-card">
+        <div class="detail-top">
+            <div class="detail-avatar">
+                <div class="avatar-frame">
+                    <img src="{{ url_for('static', filename='uploads/' ~ student.image_name) }}" alt="{{ student.first_name }} {{ student.last_name }}">
+                </div>
+                <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+                <span class="status-badge">undecided</span>
+            </div>
+            <div class="detail-summary">
+                <div class="section-heading">Personal Information</div>
+                <div class="info-row"><span>Email:</span><strong>{{ student.email }}</strong></div>
+                <div class="info-row"><span>Gender:</span><strong>{{ student.gender }}</strong></div>
+                <div class="info-row"><span>Phone Number:</span><strong>{{ student.phone }}</strong></div>
+                <div class="info-row"><span>Date Of Birth:</span><strong>{{ student.date_of_birth }}</strong></div>
+                <div class="info-row"><span>Address:</span><strong>{{ student.address }}</strong></div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <div class="section-heading">Other Information</div>
+            <div class="info-grid">
+                <div class="info-block">
+                    <span>State Of Origin</span>
+                    <strong>{{ student.country }}</strong>
+                </div>
+                <div class="info-block">
+                    <span>Local Govt</span>
+                    <strong>N/A</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <div class="section-heading">Academics Related Information</div>
+            <div class="info-grid">
+                <div class="info-block">
+                    <span>Next Of Kin</span>
+                    <strong>N/A</strong>
+                </div>
+                <div class="info-block">
+                    <span>Jamb Score</span>
+                    <strong>N/A</strong>
+                </div>
+                <div class="info-block">
+                    <span>Status</span>
+                    <strong>undecided</strong>
+                </div>
+                <div class="info-block select-block">
+                    <label for="status_change">Change Status</label>
+                    <select id="status_change">
+                        <option>Change Status</option>
+                        <option>Admitted</option>
+                        <option>Undecided</option>
+                        <option>Rejected</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-actions">
+            <a class="hero-btn" href="{{ url_for('success') }}">Back to List</a>
+        </div>
     </div>
 </div>
 {% endblock content %}

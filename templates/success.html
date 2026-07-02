@@ -6,20 +6,38 @@
 
 {% block content %}
 <div class="success-page">
-    <h1>Students Portal</h1>
-    <p>Below is a list of all registered students.</p>
+    <div class="info-banner">
+        <strong>Info!</strong> All students records table
+    </div>
 
-    <div class="table-card">
+    <div class="filter-bar">
+        <input type="text" class="filter-input" placeholder="Search Record By Name Only">
+        <select class="filter-input">
+            <option>Select Admission Status</option>
+            <option>Admitted</option>
+            <option>Undecided</option>
+            <option>Rejected</option>
+        </select>
+        <select class="filter-input">
+            <option>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+        <input type="text" class="filter-input" placeholder="Enter Jamb Score">
+        <button class="search-btn" type="button">Search</button>
+    </div>
+
+    <div class="table-card records-card">
         <table class="student-table">
             <thead>
                 <tr>
-                    <th>Serial Number</th>
+                    <th>S/n</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Course</th>
                     <th>Country</th>
-                    <th>View</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
