@@ -11,20 +11,20 @@
     </div>
 
     <div class="filter-bar">
-        <input type="text" class="filter-input" placeholder="Search Record By Name Only">
-        <select class="filter-input">
-            <option>Select Admission Status</option>
-            <option>Admitted</option>
-            <option>Undecided</option>
-            <option>Rejected</option>
+        <input id="search-name" type="text" class="filter-input" placeholder="Search Record By Name Only">
+        <select id="status-filter" class="filter-input">
+            <option value="">Select Admission Status</option>
+            <option value="Admitted">Admitted</option>
+            <option value="Undecided">Undecided</option>
+            <option value="Rejected">Rejected</option>
         </select>
-        <select class="filter-input">
-            <option>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
+        <select id="gender-filter" class="filter-input">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
         </select>
-        <input type="text" class="filter-input" placeholder="Enter Jamb Score">
-        <button class="search-btn" type="button">Search</button>
+        <input id="score-filter" type="text" class="filter-input" placeholder="Enter Jamb Score">
+        <button id="filter-search" class="search-btn" type="button">Search</button>
     </div>
 
     <div class="table-card records-card">
@@ -56,7 +56,7 @@
                     </td>
                 </tr>
                 {% else %}
-                <tr>
+                <tr class="no-data-row">
                     <td colspan="8">No students registered yet.</td>
                 </tr>
                 {% endfor %}

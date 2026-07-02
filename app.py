@@ -165,13 +165,5 @@ def student_detail(student_id):
     return render_template('student_detail.html', student=dict(student))
 
 
-@app.route('/api/options')
-def api_options():
-    return jsonify({
-        'countries': ['Kenya', 'Uganda', 'Tanzania', 'Rwanda', 'Ethiopia'],
-        'courses': ['Web Development', 'Data Science', 'Mobile Development', 'UI/UX Design', 'Cybersecurity']
-    })
-
-
 if __name__ == '__main__':
     app.run(debug=True)
