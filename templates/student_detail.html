@@ -13,7 +13,7 @@
                     <img src="{{ url_for('static', filename='uploads/' ~ student.image_name) }}" alt="{{ student.first_name }} {{ student.last_name }}">
                 </div>
                 <h2>{{ student.first_name }} {{ student.last_name }}</h2>
-                <span class="status-badge">undecided</span>
+                <span class="status-badge">{{ student.admission_status or 'undecided' }}</span>
             </div>
             <div class="detail-summary">
                 <div class="section-heading">Personal Information</div>
@@ -48,20 +48,27 @@
                 </div>
                 <div class="info-block">
                     <span>Jamb Score</span>
-                    <strong>N/A</strong>
+                    <strong>{{ student.jamb_score or 'N/A' }}</strong>
                 </div>
                 <div class="info-block">
                     <span>Status</span>
-                    <strong>undecided</strong>
+                    <strong>{{ student.admission_status or 'undecided' }}</strong>
                 </div>
                 <div class="info-block select-block">
-                    <label for="status_change">Change Status</label>
-                    <select id="status_change">
-                        <option>Change Status</option>
-                        <option>Admitted</option>
-                        <option>Undecided</option>
-                        <option>Rejected</option>
-                    </select>
+                    <form action="{{ url_for('student_detail', student_id=student.id) }}" method="post" class="status-form">
+                        <label for="status_change">Change Status</label>
+                        <div class="status-action-row">
+                            <select id="status_change" name="admission_status" required>
+                                <option value="">Change Status</option>
+                                <option value="Admitted">Admitted</option>
+                                <option value="Undecided">Undecided</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                            <button type="submit" class="status-submit" aria-label="Save status">
+                                ✓
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

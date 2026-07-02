@@ -33,10 +33,11 @@
                 <tr>
                     <th>S/n</th>
                     <th>Name</th>
+                    <th>Gender</th>
+                    <th>Jamb Score</th>
+                    <th>Admission Status</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Course</th>
-                    <th>Country</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -45,17 +46,18 @@
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ student.first_name }} {{ student.last_name }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.jamb_score or '-' }}</td>
+                    <td>{{ student.admission_status or 'undecided' }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.phone }}</td>
-                    <td>{{ student.course }}</td>
-                    <td>{{ student.country }}</td>
                     <td>
-                        <a class="view-btn" href="{{ url_for('student_detail', student_id=student.id) }}">View</a>
+                        <a class="view-btn" href="{{ url_for('student_detail', student_id=student.id) }}"><img src="{{ url_for('static', filename='images/eye.svg') }}" alt="View Details"></a>
                     </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="7">No students registered yet.</td>
+                    <td colspan="8">No students registered yet.</td>
                 </tr>
                 {% endfor %}
             </tbody>

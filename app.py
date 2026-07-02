@@ -31,9 +31,19 @@ def init_db():
             country TEXT NOT NULL,
             course TEXT NOT NULL,
             image_name TEXT NOT NULL,
+            jamb_score TEXT,
+            admission_status TEXT DEFAULT 'undecided',
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
+
+    existing_columns = [row[1] for row in conn.execute("PRAGMA table_info(students)")]
+    if 'jamb_score' not in existing_columns:
+        conn.execute("ALTER TABLE students ADD COLUMN jamb_score TEXT")
+    if 'admission_status' not in existing_columns:
+        conn.execute("ALTER TABLE students ADD COLUMN admission_status TEXT DEFAULT 'undecided'")
+    conn.execute("UPDATE students SET admission_status = 'undecided' WHERE admission_status IS NULL")
+
     conn.commit()
     conn.close()
 
@@ -87,8 +97,8 @@ def registration():
                 '''
                 INSERT INTO students (
                     first_name, last_name, address, email, phone, date_of_birth,
-                    gender, country, course, image_name
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    gender, country, course, image_name, jamb_score, admission_status
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ''',
                 (
                     request.form.get('first_name').strip(),
@@ -101,6 +111,8 @@ def registration():
                     request.form.get('country').strip(),
                     request.form.get('course').strip(),
                     unique_name,
+                    request.form.get('jamb_score', '').strip(),
+                    'undecided',
                 ),
             )
             conn.commit()
@@ -120,14 +132,27 @@ def success():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     students = conn.execute(
-        'SELECT id, first_name, last_name, email, phone, course, country FROM students ORDER BY id DESC'
+        'SELECT id, first_name, last_name, email, phone, gender, jamb_score, admission_status FROM students ORDER BY id DESC'
     ).fetchall()
     conn.close()
     return render_template('success.html', students=students)
 
 
-@app.route('/student/<int:student_id>')
+@app.route('/student/<int:student_id>', methods=['GET', 'POST'])
 def student_detail(student_id):
+    if request.method == 'POST':
+        new_status = request.form.get('admission_status', '').strip()
+        if new_status:
+            conn = sqlite3.connect(DB_PATH)
+            conn.execute(
+                'UPDATE students SET admission_status = ? WHERE id = ?',
+                (new_status, student_id),
+            )
+            conn.commit()
+            conn.close()
+            flash('Admission status updated successfully.', 'success')
+            return redirect(url_for('student_detail', student_id=student_id))
+
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     student = conn.execute(
